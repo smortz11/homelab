@@ -7,6 +7,6 @@ This repository documents the setup and configuration of my personal homelab env
 - Proxmox (virtualization cluster)
 
 ## Documentation
-- [Hardware](docs/hardware.md)
+- [Hardware and Network](docs/hardware.md)
 - [OPNsense Setup](docs/opnsense-setup.md)
 - [Proxmox Cluster](docs/proxmox-cluster.md)
