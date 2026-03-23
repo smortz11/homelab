@@ -32,8 +32,30 @@ Go ahead and check your connectivity. You can try:
 
 And if it works, then we can continue configuration in the web GUI! It can be found in a browser on your LAN at `http://192.168.30.1`.
 
-## Web GUI Setup
+If it doesn't work, the tip in the very next image may help out.
+
+## Rules and Other Setup
 
 ![OPNsense Web GUI](../images/opnsense1.png)
 
 *NOTE:* If you are configuring a homelab like me, where the WAN is just another LAN and not necessarily internet-facing, there are a few settings that will need to be toggled.
+
+Go to Interfaces -> WAN. Ensure that `Block private networks` and `Block bogon networks` are disabled. *DO NOT DO THIS IF YOUR WAN IS INTERNET FACING*.
+
+![OPNsense Homelab Config](../images/opnsense5.png)
+
+Each of us will have different rules in place for what we will want from our homelab. I want a design where my lab still has internet, all lab devices can talk to eachother (for the moment at least), only my reverse proxy can talk to the lab from the main LAN, and the lab cannot talk to the main LAN at all, besides for internect connections through the router. 
+
+Go to: Firewall -> Rules \[new\]. From here, we can add the rules we need. My final looked like this:
+
+![OPNsense Firewall Rules](../images/opnsense3.png)
+
+Later on, I added specific rules for my reverse proxy to be allowed in on certain service ports.
+
+## Small Note
+
+It is best practice to not use `root` as a default account. For that reason, we are going to create a new administrator and disable the root account! Go to: System -> Access -> Users -> +. Here, create a new user with whatever login and password you'd like. Make sure they have admin privileges. After you are done, log out, log in as the user, and disable the root account. You can find the toggle in System -> Access -> Users -> root -> Edit
+
+![OPNsense Disable Root](../images/opnsense4.png)
+
+For now, this concludes my firewall flashing and setup. The management interface is in the LAN side, which is my homelab side. This is my preference, and others may wish to configure backwards from how I have, if they think their original LAN is secure.
